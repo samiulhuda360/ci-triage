@@ -74,12 +74,19 @@ format failures, lockfile and dependency fixes, and configuration errors in file
 files, tool configs). `false` for flaky tests (a re-run passes), infrastructure, and secrets or permissions that are
 set in the repository or organisation settings rather than in code.
 
+For an **unknown** failure all three yes/no labels are false: nothing can be asserted, and a person has to look.
+
 ## 5. Urgency (`urgency`, 0 to 2)
 
-- **2, high:** the failure is on the default branch, a release, a merge queue or a scheduled build, and it is not a
-  flaky test or an infrastructure blip.
+- **2, high:** the run was a push, schedule, manual dispatch or merge-queue run on the default branch, a release
+  branch or tag, and it is not a flaky test or an infrastructure blip.
 - **0, low:** a flaky test or an infrastructure failure, on any branch.
-- **1, medium:** everything else (a deterministic failure on a pull request or feature branch, or an unknown failure).
+- **1, medium:** everything else (a deterministic failure on a pull request or feature branch, a repository automation
+  such as a Dependabot or labelling job, or an unknown failure).
+
+The yes/no labels and the urgency follow from the category and the branch by these rules. The labeller overrode them
+only where the log showed otherwise, for example a real test failure on the default branch that the commit could not
+have caused; each override is recorded in the build sheet and visible in `labels.jsonl`.
 
 ## Selection and balance
 

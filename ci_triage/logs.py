@@ -162,7 +162,7 @@ _TEST_PATTERNS: list[re.Pattern[str]] = [
     re.compile(r"^\s*●\s+(.+?)\s*$"),
     re.compile(r"^test (\S+) \.\.\. FAILED"),
     re.compile(r"^\s*(\S+ > \S+(?: > \S+)?) FAILED"),
-    re.compile(r"^\s*(?:FAIL|✕|×)\s+(\S+\.(?:test|spec)\.\w+(?: > .+)?)$"),
+    re.compile(r"^\s*(?:FAIL|✕|×)\s+(\S+\.[cm]?[jt]sx?(?: > .+)?)$"),
     re.compile(r"^\s*\[FAIL\]\s+(.+)$"),
 ]
 

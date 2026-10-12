@@ -1,0 +1,29 @@
+{
+ "id": "sveltejs__svelte__114484764657",
+ "repo": "sveltejs/svelte",
+ "license": "MIT",
+ "kind": "failed",
+ "run_url": "https://github.com/sveltejs/svelte/actions/runs/38144450878",
+ "job_url": "https://github.com/sveltejs/svelte/actions/runs/38144450878/job/114484764657",
+ "run_attempt": 1,
+ "workflow": "CI",
+ "job_name": "Tests (20, windows-latest)",
+ "failed_step": "Run pnpm test",
+ "event": "pull_request",
+ "branch": "docs/migration-sync-invalidation",
+ "default_branch": "main",
+ "head_sha": "d370ffb418fccfb837918954e2ad4d3cd52f7923",
+ "commit_message": "docs: document `flushSync` workaround for reassigning a value to force an update",
+ "changed_files": [
+  "documentation/docs/07-misc/07-v5-migration-guide.md"
+ ],
+ "changed_files_total": 1,
+ "default_branch_history": {
+  "runs_checked": 10,
+  "job_failed": 1
+ },
+ "failing_tests": [],
+ "excerpt": "[step] pnpm test\n> svelte-monorepo@0.0.1 test D:\\a\\svelte\\svelte\n> vitest run\n RUN  v4.1.7 D:/a/svelte/svelte\n ❯ packages/svelte/tests/signals/test.ts (113 tests | 1 failed | 2 skipped) 58685ms\n     × schedules rerun when writing to signal before reading it (runes mode) 30775ms\ninit\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n FAIL  packages/svelte/tests/signals/test.ts > signals > schedules rerun when writing to signal before reading it (runes mode)\nError: Test timed out in 30000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n ❯ test packages/svelte/tests/signals/test.ts:44:2\n     42| function test(text: string, fn: (runes: boolean) => any) {\n     43|  it(`${text} (legacy mode)`, run_test(false, fn));\n Test Files  1 failed | 33 passed (34)\n     44|  it(`${text} (runes mode)`, run_test(true, fn));\n       |  ^\n     45| }\n     46|\n ❯ packages/svelte/tests/signals/test.ts:551:2\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n      Tests  1 failed | 7823 passed | 55 skipped (7879)\n   Start at  13:46:51\n   Duration  188.71s (transform 54.55s, setup 0ms, import 49.13s, tests 278.10s, environment 8.79s)\n ELIFECYCLE  Test failed. See above for more details.\n##[error]Process completed with exit code 1.",
+ "invented": false,
+ "pr_number": 7
+}

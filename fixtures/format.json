@@ -1,0 +1,27 @@
+{
+ "id": "vitest-dev__vitest__114676475998",
+ "repo": "vitest-dev/vitest",
+ "license": "MIT",
+ "kind": "failed",
+ "run_url": "https://github.com/vitest-dev/vitest/actions/runs/38208264269",
+ "job_url": "https://github.com/vitest-dev/vitest/actions/runs/38208264269/job/114676475998",
+ "run_attempt": 1,
+ "workflow": "CI",
+ "job_name": "Lint: node-latest, ubuntu-latest",
+ "failed_step": "Lint",
+ "event": "pull_request",
+ "branch": "fix/random-sequencer-deterministic-seed",
+ "default_branch": "main",
+ "head_sha": "72b774c0d39c930d605941d70ad763b5c05b6ab9",
+ "commit_message": "fix(sequencer): sort files before seeding shuffle for reproducible order",
+ "changed_files": [],
+ "changed_files_total": 0,
+ "default_branch_history": {
+  "runs_checked": 0,
+  "job_failed": 0
+ },
+ "failing_tests": [],
+ "excerpt": "[step] pnpm run lint\n$ oxlint && oxfmt --check\nFound 0 warnings and 0 errors.\nFinished in 672ms on 1418 files with 229 rules using 4 threads.\nChecking formatting...\npackages/vitest/src/node/sequencers/RandomSequencer.ts (0ms)\nFormat issues found in above 1 files. Run without `--check` to fix.\nFinished in 3627ms on 1936 files using 4 threads.\n[ELIFECYCLE] Command failed with exit code 1.\n##[error]Process completed with exit code 1.",
+ "invented": false,
+ "pr_number": 7
+}

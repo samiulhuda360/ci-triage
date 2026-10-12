@@ -1,0 +1,29 @@
+{
+ "id": "vitejs__vite__114695745519",
+ "repo": "vitejs/vite",
+ "license": "MIT",
+ "kind": "failed",
+ "run_url": "https://github.com/vitejs/vite/actions/runs/38214414602",
+ "job_url": "https://github.com/vitejs/vite/actions/runs/38214414602/job/114695745519",
+ "run_attempt": 1,
+ "workflow": "CI",
+ "job_name": "Build&Test: node-26, ubuntu-latest",
+ "failed_step": "Test serve",
+ "event": "pull_request",
+ "branch": "fix/lightningcss-inline-module-hashes",
+ "default_branch": "main",
+ "head_sha": "71310478761c333f35d39b438c978f004edbca7c",
+ "commit_message": "fix(css): preserve Lightning CSS module hashes for inline imports",
+ "changed_files": [],
+ "changed_files_total": 0,
+ "default_branch_history": {
+  "runs_checked": 0,
+  "job_failed": 0
+ },
+ "failing_tests": [
+  "playground/css/__tests__/lightningcss/lightningcss.spec.ts > PostCSS source.input.from includes query"
+ ],
+ "excerpt": "[step] pnpm run test-serve\n RUN  v5.0.3 /home/runner/work/vite/vite\n(node:4797) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.\n(Use `node --trace-deprecation ...` to show where the warning was created)\nstderr | playground/tsconfig-json/__tests__/tsconfig-json.spec.ts > transformWithEsbuild > merge tsconfigRaw object\n`transformWithEsbuild` is deprecated and will be removed in the future. Please migrate to `transformWithOxc`.\n⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯\n FAIL  playground/css/__tests__/lightningcss/lightningcss.spec.ts > PostCSS source.input.from includes query\nAssertionError: expected '.source-input:before {\\n  content: \"/…' to contain '/postcss-source-input.css?inline&quer…'\n- Expected\n+ Received\n- /postcss-source-input.css?inline&query=foo\n+ .source-input:before {\n+   content: \"/home/runner/work/vite/vite/playground-temp/css__lightningcss/postcss-source-input.css?query=foo\";\n+ }\n+\n ❯ playground/css/__tests__/tests.ts:475:16\n    473|   const code = await page.textContent('.postcss-source-input')\n    474|   // should resolve assets\n    475|   expect(code).toContain('/postcss-source-input.css?inline&query=foo')\n       |                ^\n    476| })\n    477|\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯\n Test Files  1 failed | 92 passed | 18 skipped (111)\n      Tests  1 failed | 1165 passed | 182 skipped (1348)\n   Start at  06:50:03\n   Duration  75.95s (tests 65%, setup 33%, import 1%, transform 1%)\n    Isolate  111 workers spawned · ~140ms startup each (spawn + environment, per file)\n             at least ~5.06s faster with isolate: false — reuses workers across files instead of one per file\n[ELIFECYCLE] Command failed with exit code 1.\n##[error]Process completed with exit code 1.",
+ "invented": false,
+ "pr_number": 7
+}

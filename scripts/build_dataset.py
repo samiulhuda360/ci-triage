@@ -40,6 +40,7 @@ KEEP = [
     "default_branch",
     "head_sha",
     "commit_message",
+    "created_at",
     "changed_files",
     "changed_files_total",
     "default_branch_history",
@@ -138,15 +139,18 @@ def main() -> None:
         row["changed_files"] = row["changed_files"] or []
         row["changed_files_total"] = row["changed_files_total"] or 0
         row["default_branch_history"] = row["default_branch_history"] or {"runs_checked": 0, "job_failed": 0}
+        if row["kind"] == "rerun_passed":
+            row["run_attempt"] = 1  # the failed job comes from the first attempt of a run that later passed
         row["invented"] = False
         rows.append(row)
-        labels.append({"id": item_id, "labels": gold(row, category, overrides), "note": note})
+        labels.append({"id": item_id, "labels": gold(row, category, overrides), "overrides": overrides, "note": note})
     invented_rows = [json.loads(line) for line in a.invented.read_text(encoding="utf-8").splitlines() if line.strip()] if a.invented.exists() else []
     for inv in invented_rows:
         lab = inv.pop("label")
         inv["invented"] = True
         rows.append(inv)
-        labels.append({"id": inv["id"], "labels": gold(inv, lab["category"], lab.get("overrides", {})), "note": lab.get("note", "invented")})
+        ov = lab.get("overrides", {})
+        labels.append({"id": inv["id"], "labels": gold(inv, lab["category"], ov), "overrides": ov, "note": lab.get("note", "invented")})
     DATA.mkdir(parents=True, exist_ok=True)
     with (DATA / "failures.jsonl").open("w", encoding="utf-8", newline="\n") as fh:
         for r in rows:

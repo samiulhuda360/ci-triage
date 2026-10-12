@@ -1,0 +1,33 @@
+{
+ "id": "astral-sh__uv__114039153490",
+ "repo": "astral-sh/uv",
+ "license": "Apache-2.0",
+ "kind": "rerun_passed",
+ "run_url": "https://github.com/astral-sh/uv/actions/runs/37994770690",
+ "job_url": "https://github.com/astral-sh/uv/actions/runs/37994770690/job/114039153490",
+ "run_attempt": 1,
+ "workflow": "CI",
+ "job_name": "test-smoke / linux musl",
+ "failed_step": "Initialize containers",
+ "event": "pull_request",
+ "branch": "ww/size-zstd-decode-only",
+ "default_branch": "main",
+ "head_sha": "ce5909038b05c8211b959cb0a41c63ff01e839f3",
+ "commit_message": "Update astral_async_zip to 0.0.22",
+ "created_at": "2026-10-09T21:39:40Z",
+ "changed_files": [
+  "Cargo.lock",
+  "Cargo.toml",
+  "crates/uv-extract/src/error.rs",
+  "crates/uv-extract/src/stream.rs"
+ ],
+ "changed_files_total": 4,
+ "default_branch_history": {
+  "runs_checked": 10,
+  "job_failed": 1
+ },
+ "failing_tests": [],
+ "excerpt": "Version: 20261004.327.1\nIncluded Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md\nImage Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327\n##[group]GITHUB_TOKEN Permissions\nContents: read\nMetadata: read\nSecret source: Actions\nCache mode: write\nPrepare workflow directory\nPrepare all required actions\nGetting action download info\nDownload action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)\nDownload action repository 'actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c' (SHA:3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c)\nUses: astral-sh/uv/.github/workflows/test-smoke.yml@refs/pull/22432/merge (80e200404be3aba7641544e4ea4385ba67a27551)\n##[group] Inputs\n  sha: 80e200404be3aba7641544e4ea4385ba67a27551\nComplete job name: test-smoke / linux musl\n##[group]Checking docker version\n##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'\n'1.48'\nDocker daemon API version: '1.48'\n##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'\n'1.48'\nDocker client API version: '1.48'\n##[group]Clean up resources from previous jobs\n##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter \"label=003ab9\"\n##[command]/usr/bin/docker network prune --force --filter \"label=003ab9\"\n##[group]Create local container network\n##[command]/usr/bin/docker network create --label 003ab9 github_network_8bfc51e3f2774d61b8e0b984d37cd684\n[REDACTED]\n##[group]Starting job container\n##[command]/usr/bin/docker pull alpine:latest@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b\nError response from daemon: Get \"https://registry-1.docker.io/v2/library/alpine/manifests/sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b\": Get \"https://auth.docker.io/token?account=githubactions&scope=repository%3Alibrary%2Falpine%3Apull&service=registry.docker.io\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)\n##[warning]Docker pull failed with exit code 1, back off 2.794 seconds before retry.\n##[command]/usr/bin/docker pull alpine:latest@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b\nError response from daemon: toomanyrequests: You have reached your unauthenticated pull rate limit. https://www.docker.com/increase-rate-limit\n##[warning]Docker pull failed with exit code 1, back off 3.023 seconds before retry.\n##[command]/usr/bin/docker pull alpine:latest@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b\nError response from daemon: toomanyrequests: You have reached your unauthenticated pull rate limit. https://www.docker.com/increase-rate-limit\n##[error]Docker pull failed with exit code 1",
+ "invented": false,
+ "pr_number": 7
+}

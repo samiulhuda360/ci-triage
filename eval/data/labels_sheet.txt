@@ -1,0 +1,197 @@
+# id | category | overrides | note  (25 per category, seeded random sample where more were labelled)
+argoproj__argo-cd__114711845030 | compile_error | | undefined: signedTagOnly after merge
+facebook__react__114442353068 | compile_error | | Flow missing-export errors
+go-gitea__gitea__114207029579 | compile_error | | Go syntax error
+microsoft__TypeScript__113018896762 | compile_error | | TS2345 in build script
+microsoft__TypeScript__113056728582 | compile_error | | tsc -b test build failed
+microsoft__TypeScript__113392742281 | compile_error | | test packages report build failed
+microsoft__TypeScript__113392742922 | compile_error | | Go compile error after type change
+microsoft__TypeScript__113527786323 | compile_error | | TS2307 in API tests
+mui__material-ui__113852813568 | compile_error | | TS4023 declaration emit error
+pola-rs__polars__114711003282 | compile_error | | undeclared type in Rust docs example
+prisma__prisma__113980241765 | compile_error | | TS2307 cannot find module
+prometheus__prometheus__114540002085 | compile_error | | undefined function after rename
+pulumi__pulumi__114513466014 | compile_error | | merge conflict markers in Go file
+sveltejs__svelte__113376198592 | compile_error | | TS2552 cannot find name
+sveltejs__svelte__114029066815 | compile_error | | tsgo TS2345/TS2416
+tokio-rs__tokio__112995580809 | compile_error | | E0432 in clippy build
+tokio-rs__tokio__113172529999 | compile_error | | test crate compile errors on emscripten
+tokio-rs__tokio__114456158246 | compile_error | | E0599 compile error after merge
+trinodb__trino__114300517085 | compile_error | | Java cannot find symbol in test
+typescript-eslint__typescript-eslint__114426314888 | compile_error | | TS2694 build error on main
+vercel__next.js__114247779668 | compile_error | | E0432 unresolved import
+vercel__next.js__114255054247 | compile_error | | TS2322 in e2e test types
+vllm-project__vllm__114704015294 | compile_error | | mypy type errors
+apache__airflow__114677477611 | configuration | | codspeed upload 401 unauthorized
+argoproj__argo-cd__114710715153 | configuration | | PR title checker: Resource not accessible by integration
+aws__aws-cdk__114434629617 | configuration | code=1 | github-token input not supplied in scheduled workflow
+dagster-io__dagster__114393313886 | configuration | | vercel-token input not supplied
+duckdb__duckdb__114623572881 | configuration | code=1 | VCPKG_TOOLCHAIN_PATH not set
+excalidraw__excalidraw__113204016034 | configuration | | docker push access denied
+huggingface__transformers__114644814970 | configuration | caused=1 code=1 | PR security gate: file outside allowed directories
+langchain-ai__langchain__114497222589 | configuration | code=1 | issue labeler regex no longer matches template
+langchain-ai__langchain__114715420249 | configuration | | PR process check: author not assigned to linked issue
+moby__moby__114683870260 | configuration | | milestone does not match next version (PR metadata check)
+mui__material-ui__114017980779 | configuration | | required label missing
+nodejs__undici__114444460850 | configuration | code=1 | nightly workflow step removes a directory with rm
+ollama__ollama__110658312118 | configuration | | notary service 403: account agreement missing
+opensearch-project__OpenSearch__114615074145 | configuration | code=1 | lychee action rejects removed flag
+pola-rs__polars__114664980979 | configuration | | github-script 403 Resource not accessible by integration
+prisma__prisma__114173308761 | configuration | | gitleaks action needs licence key secret
+prometheus__prometheus__114540001492 | configuration | | release-notes block missing from PR description
+pydantic__pydantic__114484037956 | configuration | urg=1 | download-artifact finds no run (fork skipped)
+quarkusio__quarkus__113902287184 | configuration | | test database de-provisioning HTTP 401 credential
+storybookjs__storybook__113828692299 | configuration | | CircleCI trigger: branch not found for fork PR
+storybookjs__storybook__114666410443 | configuration | | Danger 403 Resource not accessible by integration
+supabase__supabase__114715996402 | configuration | | Bad credentials for repository dispatch
+trinodb__trino__114648262856 | configuration | | CLA missing for contributor
+vercel__next.js__114706175837 | configuration | code=1 | GH_TOKEN not set for gh in workflow
+vllm-project__vllm__114719091009 | configuration | | PR process check: ready label or merged-PR count
+apache__arrow__114696873411 | dependency | caused=0 | Homebrew formula grpc@1.54 no longer available
+apache__iceberg__114652635228 | dependency | caused=0 | gradle cannot resolve javax.ws.rs-api
+astral-sh__uv__113930417049 | dependency | | cargo-shear: misplaced dependency
+cli__cli__113566862286 | dependency | | dependency update removed a field used by code
+denoland__deno__112194068168 | dependency | | dependency bump breaks build (unresolved import)
+fastify__fastify__114418620575 | dependency | | no matching version under min release age
+helm__helm__114611997991 | dependency | caused=0 | govulncheck: vulnerable golang.org/x/net on schedule
+home-assistant__core__114710827627 | dependency | | pinned version does not exist
+huggingface__transformers__114639699626 | dependency | caused=0 | pyarrow needs numpy 2 on schedule
+mui__material-ui__113816673849 | dependency | | outdated pnpm lockfile after peer dep change
+mui__material-ui__114201014183 | dependency | | babel major bump breaks type build
+nestjs__nest__113725957829 | dependency | caused=0 urg=1 | dependabot: handlebars fix blocked by lerna constraint
+ollama__ollama__112050201380 | dependency | | vendored dependency bump: patch no longer applies
+open-telemetry__opentelemetry-collector-contrib__114696283203 | dependency | | missing go.sum entry for new import
+prettier__prettier__114110776414 | dependency | | lockfile maintenance: dependency file layout changed
+pydantic__pydantic__113900999246 | dependency | caused=0 urg=1 | dependabot security update not possible (pygments conflict)
+storybookjs__storybook__113736895267 | dependency | caused=0 | npm@latest requires newer node (EBADENGINE)
+sveltejs__svelte__113985272180 | dependency | | type error inside a dependency's declarations
+tauri-apps__tauri__114656744137 | dependency | | dependency update needs newer rustc than CI
+tokio-rs__tokio__113508169340 | dependency | caused=0 | cannot select libc version required by git dependency
+tokio-rs__tokio__113919326161 | dependency | caused=0 | dependency crate fails to compile on FreeBSD
+vitejs__vite__114630824045 | dependency | | outdated pnpm lockfile
+vuejs__core__113328260108 | dependency | | major compiler update breaks build script
+vuejs__core__114699779903 | dependency | | pnpm lockfile catalogs mismatch
+apache__pulsar__112905645989 | flaky_test | | rerun passed; unit test group
+apache__pulsar__114379871197 | flaky_test | | rerun passed; broker test group
+astral-sh__ruff__113780390598 | flaky_test | | rerun passed; CLI snapshot with interpreter query failure
+astral-sh__uv__114473800162 | flaky_test | | rerun passed; nextest failure windows
+containerd__containerd__113254204615 | flaky_test | | rerun passed; node e2e stats API test
+containerd__containerd__114468134080 | flaky_test | | rerun passed; image pull timeout test
+docker__compose__113305180634 | flaky_test | | rerun passed; e2e plugin-mode test
+eslint__eslint__107914002320 | flaky_test | | rerun passed; ecosystem plugin test suite
+fastify__fastify__114216081544 | flaky_test | | rerun passed; remote address assertion
+helm__helm__112010665299 | flaky_test | | pod deletion wait test; the same job failed 1 of the last 10 runs on main
+microsoft__playwright__113558095023 | flaky_test | | rerun passed; VS Code extension test
+microsoft__playwright__114595100059 | flaky_test | | 90s test timeout in trace viewer test on an actions-only dependabot PR
+moby__moby__113824230454 | flaky_test | | rerun passed; windows buildkit integration tests
+open-telemetry__opentelemetry-collector-contrib__114691680706 | flaky_test | | k8s e2e count condition never satisfied, changelog-only PR
+pola-rs__polars__114522895855 | flaky_test | | HTTP host/port set assertion in cloud IO test, unrelated PR
+prometheus__prometheus__114690503856 | flaky_test | | rerun passed; tsdb test timeout goroutine dump
+pulumi__pulumi__114024391593 | flaky_test | | rerun passed; cgroups smoke test exit 125
+pulumi__pulumi__114680991169 | flaky_test | | performance test step slower than threshold on schedule
+sveltejs__svelte__112744170656 | flaky_test | | same 30s signal test timeout on windows, unrelated PR
+sveltejs__svelte__114484764657 | flaky_test | | test timed out 30s on windows, docs-only PR
+tokio-rs__tokio__114433571982 | flaky_test | | rerun passed; io_uring shutdown test
+vitejs__vite__114009293942 | flaky_test | | build-watch CSS test on unrelated PR re-triggered for flakiness
+vitest-dev__vitest__112220496972 | flaky_test | | rerun passed; browser runner test
+vitest-dev__vitest__112411213380 | flaky_test | | rerun passed; ERR_CONNECTION_REFUSED in browser test
+vuejs__core__114636213911 | flaky_test | | rerun passed; KeepAlive transition e2e assertion
+apache__arrow__114279182920 | infrastructure | | rerun passed; Homebrew formula lookup failed
+apache__pulsar__114033696031 | infrastructure | | docker auth 504 gateway timeout
+astral-sh__uv__114039153490 | infrastructure | | docker hub pull rate limit
+astral-sh__uv__114212970287 | infrastructure | | rerun passed; test.pypi index propagation
+cli__cli__113856281888 | infrastructure | | rerun passed; Go module proxy stream error
+containerd__containerd__114023169987 | infrastructure | | rerun passed; registry HEAD request failed
+containerd__containerd__114024268752 | infrastructure | | rerun passed; docker hub rate limit
+denoland__deno__108160114303 | infrastructure | | rerun passed; job cancelled
+denoland__deno__111700926828 | infrastructure | | rerun passed; artifact upload ENOTFOUND
+denoland__deno__112193005528 | infrastructure | | DNS error reaching timestamp server
+docker__compose__113729500586 | infrastructure | | rerun passed; base image not yet published for platform
+eslint__eslint__108739597333 | infrastructure | | setup-node socket hang up
+eslint__eslint__110546824209 | infrastructure | | rerun passed; npm registry 404 for a published tarball
+eslint__eslint__114612362833 | infrastructure | | GitHub API rate limit in scheduled updater
+etcd-io__etcd__114621316205 | infrastructure | | DNS lookup failure for testgrid
+excalidraw__excalidraw__109421832804 | infrastructure | | rerun passed; registry publish Not found
+fastapi__fastapi__113022199418 | infrastructure | | rerun passed; benchmark job cancelled
+microsoft__TypeScript__114673473649 | infrastructure | | disk quota exceeded during go build
+ollama__ollama__111281811284 | infrastructure | | npm ECONNRESET
+pulumi__pulumi__114038127102 | infrastructure | | rerun passed; Go module proxy stream error
+pydantic__pydantic__114655067161 | infrastructure | | scheduled job cancelled (time limit) after tests passed
+quarkusio__quarkus__114350591017 | infrastructure | | NVD API request failures
+supabase__supabase__114714132510 | infrastructure | | GitHub API rate limit
+tokio-rs__tokio__114216600948 | infrastructure | | rerun passed; job cancelled
+vllm-project__vllm__114715538081 | infrastructure | | read operation timed out calling CI service
+apache__airflow__114679260679 | lint_format | | generated schema out of date (pre-commit sync hook)
+apache__arrow__114627462426 | lint_format | | pre-commit R formatter
+apache__iceberg__114671426962 | lint_format | | spotless formatting violations
+astral-sh__ruff__114006374173 | lint_format | | hawk visibility lint
+backstage__backstage__113821261174 | lint_format | | docs quality spelling check
+backstage__backstage__114625705553 | lint_format | | API report check
+biomejs__biome__114461688832 | lint_format | | clippy collapsible if
+biomejs__biome__114701802800 | lint_format | | autofix found generated files out of date
+containerd__containerd__114636614347 | lint_format | | DCO / commit message check
+duckdb__duckdb__114617439999 | lint_format | | generated extension_entries.hpp out of date
+duckdb__duckdb__114706567007 | lint_format | | clang-format check
+eslint__eslint__114594430047 | lint_format | | prettier check on docs
+fastify__fastify__114420215061 | lint_format | caused=0 | docs link checker: external redirect
+go-gitea__gitea__114428501143 | lint_format | | depguard import rule
+home-assistant__core__114700722107 | lint_format | | pylint reimport
+open-telemetry__opentelemetry-collector-contrib__114707267832 | lint_format | | changelog entry missing
+open-telemetry__opentelemetry-python__113898003848 | lint_format | | generated workflows out of date
+pnpm__pnpm__114646745444 | lint_format | | eslint 3 errors
+pola-rs__polars__114710996619 | lint_format | | invalid PR title
+pulumi__pulumi__114551319226 | lint_format | | gofumpt formatting
+pydantic__pydantic__114541587099 | lint_format | | pre-commit lint job
+tokio-rs__tokio__114480568779 | lint_format | | clippy explicit_write
+traefik__traefik__113339869154 | lint_format | | golangci-lint unparam
+trinodb__trino__114579657282 | lint_format | | commit message wrap check
+vitest-dev__vitest__114676475998 | lint_format | | oxfmt check
+apache__datafusion__114499424109 | test_failure | | expected plan changed in sqllogictest
+astral-sh__uv__114471066139 | test_failure | | system test: uv panics on main
+biomejs__biome__114420520834 | test_failure | | markdown formatter snapshot test
+biomejs__biome__114559444722 | test_failure | | insta snapshot assertion in changed plugin config area
+duckdb__duckdb__114596371577 | test_failure | | new metrics test fails after retries
+eslint__eslint__112349510097 | test_failure | | ecosystem plugin breaks on new read-only languageId
+facebook__react__114611118245 | test_failure | | devtools snapshot mismatch on schedule
+fastapi__fastapi__112431341271 | test_failure | | benchmark test_openapi raises on PR changing openapi
+fastify__fastify__114717316264 | test_failure | | coverage below threshold
+home-assistant__core__114713158394 | test_failure | | new integration test assertion
+keycloak__keycloak__114661729433 | test_failure | caused=0 | conformance test fails on main, unrelated translation commit
+microsoft__TypeScript__113559811242 | test_failure | | data race detected after AST arena change
+nodejs__undici__113454658323 | test_failure | | http2 assertion on http2 PR
+nodejs__undici__113587845596 | test_failure | | dedup interceptor test the PR touches
+nodejs__undici__113733370612 | test_failure | | backpressure assertion in the area the PR changes
+pola-rs__polars__114486583985 | test_failure | | assertion in parquet test the PR changes
+prisma__prisma__113732468209 | test_failure | | contract validation error in the package the PR changes
+prisma__prisma__113919942714 | test_failure | | merge queue integration assertion
+prisma__prisma__114651176163 | test_failure | | nightly e2e journey assertion on main
+sveltejs__svelte__112798946537 | test_failure | | hydration test in the area the PR changes
+typescript-eslint__typescript-eslint__112784126696 | test_failure | | docs snapshot mismatch for new rule
+typescript-eslint__typescript-eslint__114236057035 | test_failure | | docs snapshot mismatch for the rule the PR changes
+typescript-eslint__typescript-eslint__114508797415 | test_failure | | snapshot mismatch in rule docs test
+vitejs__vite__114695745519 | test_failure | | lightningcss assertion, PR touches it
+vitejs__vite__114708776239 | test_failure | | css-codesplit assertion on lightningcss PR
+apache__datafusion__114660866965 | unknown | | cargo test output, failure not in excerpt
+apache__pulsar__114413706398 | unknown | | required-jobs aggregator
+astral-sh__ruff__113991207459 | unknown | | required-checks aggregator lists three failed jobs
+caddyserver__caddy__114633314751 | unknown | | debug log only
+containerd__containerd__114699632273 | unknown | | integration log noise only
+eslint__eslint__112349519907 | unknown | | cypress: 1 failing, no detail in excerpt
+go-gitea__gitea__114458242768 | unknown | | integration test log without failure
+keycloak__keycloak__114477086147 | unknown | | maven reactor summary only
+langchain-ai__langchain__114425207752 | unknown | | passing tests then exit 2
+microsoft__TypeScript__113177284640 | unknown | | required-jobs aggregator on main
+microsoft__TypeScript__114661743121 | unknown | | required-jobs aggregator
+microsoft__playwright__114595102329 | unknown | | test list without failure
+open-telemetry__opentelemetry-collector-contrib__114540400530 | unknown | | matrix aggregator
+opensearch-project__OpenSearch__114542165110 | unknown | | bare exit 1
+opensearch-project__OpenSearch__114698658813 | unknown | | external Jenkins gradle check reports FAILURE only
+pnpm__pnpm__114630916551 | unknown | | registry request log only
+pnpm__pnpm__114647172232 | unknown | | passing tests then exit 1
+prettier__prettier__114178983583 | unknown | | PASS lines then exit 1
+prisma__prisma__113920367154 | unknown | | bare exit 1 in merge queue gate
+tokio-rs__tokio__114588495052 | unknown | | test list without failure
+trinodb__trino__114390542229 | unknown | | script echo only
+typescript-eslint__typescript-eslint__112223516113 | unknown | | required-checks aggregator exit 1
+vercel__next.js__114612679301 | unknown | | e2e output without the failing assertion
+vercel__next.js__114697443308 | unknown | | e2e output without the failing assertion

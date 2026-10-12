@@ -144,7 +144,7 @@ def record(repo: str, lic: str, default_branch: str, run: dict[str, Any], job: d
         "kind": kind,  # "failed" (latest attempt failed) or "rerun_passed" (a later attempt of the same commit passed)
         "run_id": run["id"],
         "run_url": run["html_url"],
-        "run_attempt": run.get("run_attempt", 1),
+        "run_attempt": 1 if kind == "rerun_passed" else run.get("run_attempt", 1),  # the failed job is from attempt 1
         "job_id": job["id"],
         "job_url": job.get("html_url", ""),
         "workflow": run.get("name", ""),
