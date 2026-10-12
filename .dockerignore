@@ -1,0 +1,9 @@
+.git
+eval
+docs
+tests
+fixtures
+examples
+scripts
+**/__pycache__
+.ci-triage

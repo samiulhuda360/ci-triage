@@ -1,0 +1,20 @@
+# .github/workflows/ci-triage-weekly.yml: every Monday, the top flaky tests of the last 7 days in the run summary.
+name: ci-triage weekly report
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: samiulhuda360/ci-triage@v1
+        with:
+          command: report

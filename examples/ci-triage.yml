@@ -1,0 +1,43 @@
+# .github/ci-triage.yml: every key is optional; these are the defaults.
+backend: auto # jev when TYPESAFE_API_KEY is set, otherwise the regex rules (or: jev, llm, rules)
+dry_run: false # true: decide and write the run summary only
+needs_human_confidence: 0.5 # below this category confidence, add the ci:needs-human label
+comment: true # one comment per pull request, updated in place
+step_summary: true
+key_lines: 5 # log lines quoted in the comment
+max_jobs: 4 # failed jobs judged per run
+history_runs: 10 # default-branch runs checked for the same job
+ignore_jobs: [] # job names never triaged
+
+rerun:
+  enabled: true
+  categories: [flaky_test, infrastructure]
+  min_confidence: 0.6 # Jev's category confidence needed to re-run without a person
+  min_safe_to_rerun: 0.7 # P(a re-run passes)
+  max_caused_by_commit: 0.3 # P(this commit caused it) must stay below this
+  max_per_day: 10 # per repository
+  only_first_attempt: true # re-run once, never loop
+
+labels:
+  enabled: true
+  prefix: "ci:" # ci:flaky-test, ci:test-failure, ci:lint-format, ...
+  needs_human: ci:needs-human
+  rerun: ci:auto-rerun
+
+notify: # Slack or Teams incoming webhooks, read from these environment variables
+  default_branch_only: true
+  min_urgency: 2
+  slack_webhook_env: CI_TRIAGE_SLACK_WEBHOOK
+  teams_webhook_env: CI_TRIAGE_TEAMS_WEBHOOK
+
+flaky:
+  store: .ci-triage/flaky.db
+  report_days: 7
+  report_top: 10
+
+suggest: # optional one-paragraph fix suggestion from an OpenAI-compatible model (AI_API_KEY)
+  enabled: false
+  categories: [test_failure, compile_error, lint_format, dependency]
+  cache_dir: .ci-triage/suggestions
+
+audit_log: .ci-triage/audit.jsonl

@@ -101,6 +101,9 @@ def extract_error_region(raw: str, before: int = 12, after: int = 45, max_chars:
         if m and lines[i].startswith("##[group]Run "):
             start, step = i, m.group(1).strip()
             break
+    if not step:
+        # The job failed before any "Run" step (for example while starting containers): keep the lines before the error.
+        start = max(0, end - after)
     first = next((i for i in range(start + 1, end) if _is_marker(lines[i]) and not _ERROR_ANNOTATION.match(lines[i])), None)
     if first is None:
         first = max(start, end - after)

@@ -14,7 +14,12 @@ __all__ = ["Backend", "BackendError", "CacheMiss", "JevBackend", "LlmBackend", "
 
 
 def get_backend(name: str = "auto", cache_dir: Path | None = None) -> Backend:
-    """`auto` uses Jev when TYPESAFE_API_KEY is set, and the rules baseline otherwise."""
+    """`auto` uses Jev when TYPESAFE_API_KEY is set, and the rules baseline otherwise.
+
+    Responses are cached in `cache_dir`, or in CI_TRIAGE_CACHE_DIR when that is set.
+    """
+    if cache_dir is None and os.environ.get("CI_TRIAGE_CACHE_DIR"):
+        cache_dir = Path(os.environ["CI_TRIAGE_CACHE_DIR"])
     if name == "auto":
         name = "jev" if os.environ.get("TYPESAFE_API_KEY") else "rules"
     if name == "jev":

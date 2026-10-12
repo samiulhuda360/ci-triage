@@ -1,0 +1,91 @@
+name: ci-triage
+description: Reads a failed CI run and says what kind of failure it is and what to do. Re-runs flaky and infrastructure failures once, comments on real ones.
+author: Samiul Huda
+branding:
+  icon: activity
+  color: green
+
+inputs:
+  typesafe-api-key:
+    description: TypeSafe AI API key for Jev. Without it ci-triage falls back to the regex rules.
+    required: false
+    default: ""
+  github-token:
+    description: Token used to read the failed run and its logs, re-run jobs, label and comment.
+    required: false
+    default: ${{ github.token }}
+  config:
+    description: Path to the policy file.
+    required: false
+    default: .github/ci-triage.yml
+  dry-run:
+    description: "true to decide and write the run summary only, without re-running, labelling or commenting."
+    required: false
+    default: "false"
+  backend:
+    description: "Override the backend from the policy file: jev, llm, rules or auto."
+    required: false
+    default: ""
+  command:
+    description: "triage (default) for a workflow_run event, or report for the weekly flaky-test report."
+    required: false
+    default: triage
+  persist-store:
+    description: "true to keep the flaky-test store between runs with the Actions cache."
+    required: false
+    default: "true"
+  ai-api-key:
+    description: Optional key for the OpenAI-compatible model used by the fix suggestion (suggest.enabled in the policy).
+    required: false
+    default: ""
+
+outputs:
+  action:
+    description: rerun, report or skipped
+    value: ${{ steps.triage.outputs.action }}
+  category:
+    description: The category of the first failed job
+    value: ${{ steps.triage.outputs.category }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Install ci-triage
+      shell: bash
+      run: python -m pip install --quiet "${{ github.action_path }}"
+    - name: Restore the flaky-test store
+      if: inputs.persist-store == 'true'
+      uses: actions/cache/restore@v4
+      with:
+        path: .ci-triage/flaky.db
+        key: ci-triage-store-${{ github.run_id }}
+        restore-keys: ci-triage-store-
+    - name: Triage
+      id: triage
+      shell: bash
+      env:
+        TYPESAFE_API_KEY: ${{ inputs.typesafe-api-key }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        AI_API_KEY: ${{ inputs.ai-api-key }}
+        CI_TRIAGE_BACKEND: ${{ inputs.backend }}
+        CI_TRIAGE_CONFIG: ${{ inputs.config }}
+        CI_TRIAGE_DRY_RUN: ${{ inputs.dry-run }}
+        CI_TRIAGE_COMMAND: ${{ inputs.command }}
+      run: |
+        if [ "$CI_TRIAGE_COMMAND" = "report" ]; then
+          ci-triage report --config "$CI_TRIAGE_CONFIG" --out ci-triage-report.md
+          cat ci-triage-report.md >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+        fi
+        args=(action --config "$CI_TRIAGE_CONFIG")
+        if [ "$CI_TRIAGE_DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+        ci-triage "${args[@]}"
+    - name: Save the flaky-test store
+      if: always() && inputs.persist-store == 'true' && inputs.command != 'report'
+      uses: actions/cache/save@v4
+      with:
+        path: .ci-triage/flaky.db
+        key: ci-triage-store-${{ github.run_id }}

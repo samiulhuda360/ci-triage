@@ -26,18 +26,18 @@ _TOKEN_PATTERNS: list[re.Pattern[str]] = [
 _ASSIGNMENT = re.compile(
     r"""(?ix)
     (\b[\w.-]*(?:password|passwd|pwd|secret|token|api[_-]?key|access[_-]?key|private[_-]?key|client[_-]?secret|credentials?|auth)[\w.-]*
-     ["']?\s*[:=]\s*["']?)
+     ["']?[ \t]*[:=][ \t]*["']?)
     ([^\s"',;]{6,})
     """
 )
-_BEARER = re.compile(r"(?i)(\b(?:bearer|basic|token)\s+)([A-Za-z0-9._~+/=-]{12,})")
+_BEARER = re.compile(r"(?i)(\b(?:bearer|basic|token)[ \t]+)([A-Za-z0-9._~+/=-]{12,})")
 _URL_CREDENTIALS = re.compile(r"([a-z][a-z0-9+.-]*://[^\s:/@]+:)([^\s@/]+)(@)", re.I)
 _EMAIL = re.compile(r"(?<![\w.%+-])(?!git@)[A-Za-z0-9._%+-]+@(?!users\.noreply\.github\.com)[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
-_LONG_HEX = re.compile(r"(?i)\b(?=[a-f0-9]*[a-f])(?=[a-f0-9]*\d)[a-f0-9]{48,}\b")
+_LONG_HEX = re.compile(r"(?i)(?<!sha256:)(?<!sha512:)\b(?=[a-f0-9]*[a-f])(?=[a-f0-9]*\d)[a-f0-9]{48,}\b")
 # Values that are clearly placeholders, masks or references, not secrets.
 _SAFE_VALUE = re.compile(
     r"(?i)^(?:\$\{\{.*|\$\{?[A-Z_][A-Z0-9_]*\}?|os\.environ.*|process\.env.*|env\(.*|getenv.*|<[^>]+>|x{3,}|\*{3,}|none|null|true|false|"
-    r"changeme|example|placeholder|required|missing|invalid|expired|undefined|\[REDACTED\].*)"
+    r"changeme|example|placeholder|required|missing|invalid|expired|undefined|\[REDACTED\].*|\d+(?::\d+)+\)?:?$|\d{1,6}\)?:?$)"
 )
 
 
@@ -56,7 +56,7 @@ def redact(text: str) -> tuple[str, int]:
     def sub_value(m: re.Match[str]) -> str:
         nonlocal count
         value = m.group(2)
-        if _SAFE_VALUE.match(value) or (value.isalpha() and value.islower()):
+        if _SAFE_VALUE.match(value) or (value.isalpha() and len(value) < 24):
             return m.group(0)
         count += 1
         return m.group(1) + REDACTED

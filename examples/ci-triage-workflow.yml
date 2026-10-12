@@ -1,0 +1,23 @@
+# .github/workflows/ci-triage.yml: triage every failed run of the "CI" workflow.
+name: ci-triage
+
+on:
+  workflow_run:
+    workflows: ["CI"] # the name of your test workflow(s)
+    types: [completed]
+
+permissions:
+  actions: write # re-run failed jobs, and keep the flaky-test store in the Actions cache
+  pull-requests: write # labels and the triage comment
+  issues: write
+  contents: read
+
+jobs:
+  triage:
+    if: github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # only to read .github/ci-triage.yml; no code from the failed run is executed
+      - uses: samiulhuda360/ci-triage@v1
+        with:
+          typesafe-api-key: ${{ secrets.TYPESAFE_API_KEY }}
