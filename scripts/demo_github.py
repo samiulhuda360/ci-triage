@@ -4,7 +4,7 @@ It serves one failed workflow run built from a fixture (a real failed job from t
 commit files and default-branch history), runs `ci-triage action` exactly as the Action does, and prints every write
 ci-triage made (re-run, labels, comment). Nothing on github.com is changed.
 
-    python scripts/demo_github.py fixtures/flaky-rerun.json
+    python scripts/demo_github.py fixtures/infra-rerun.json
 """
 
 from __future__ import annotations
@@ -140,8 +140,9 @@ def main() -> int:
         summary = (work / "summary.md").read_text(encoding="utf-8") if (work / "summary.md").exists() else ""
     httpd.shutdown()
     print(f"$ ci-triage action   # failed run of {fx['job_name']!r} in {REPO}")
-    for line in proc.stdout.splitlines():
-        if line.startswith(("ci-triage:", "- ")):
+    status = ("\n" + proc.stdout).split("\nci-triage: ", 1)
+    if len(status) == 2:
+        for line in ("ci-triage: " + status[1]).splitlines():
             print(f"  {line}")
     print(f"ci-triage exited with code {proc.returncode}; {len(writes)} writes to GitHub:")
     for w in writes:

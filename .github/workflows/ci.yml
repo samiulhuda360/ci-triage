@@ -36,4 +36,4 @@ jobs:
         run: |
           for f in fixtures/*.json; do ci-triage check "$f" --backend jev --cache eval/cache > /dev/null; done
       - name: Action code path against a local stand-in for the GitHub API
-        run: python scripts/demo_github.py fixtures/flaky-rerun.json
+        run: python scripts/demo_github.py fixtures/infra-rerun.json
