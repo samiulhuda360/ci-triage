@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "eval" / "data"
 CACHE = ROOT / "eval" / "cache"
 THRESHOLDS = (0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
+SAFE_GATES = (0.5, 0.6, 0.7, 0.8)
 BACKEND_TITLES = {"jev": "Jev", "llm": "LLM (Gemini Flash-Lite)", "rules": "Regex rules"}
 
 
@@ -61,11 +62,13 @@ def run_backend(backend: Backend, items: list[Item], progress: bool = False) -> 
     return out
 
 
-def policy_stats(items: list[Item], decisions: list[Decision], threshold: float) -> dict[str, float]:
+def policy_stats(items: list[Item], decisions: list[Decision], threshold: float, min_safe: float | None = None) -> dict[str, float]:
     """The re-run policy and the 'decided automatically' share at one category-confidence threshold."""
     cfg = Config()
     cfg.rerun.min_confidence = threshold
     cfg.needs_human_confidence = threshold
+    if min_safe is not None:
+        cfg.rerun.min_safe_to_rerun = min_safe
     n = len(items)
     reruns = wrong = 0
     auto = auto_right = 0
@@ -144,6 +147,7 @@ def score_backend(items: list[Item], decisions: list[Decision]) -> dict[str, Any
     res["policy"] = [policy_stats(items, decisions, t) for t in THRESHOLDS]
     default = Config()
     res["policy_default"] = policy_stats(items, decisions, default.rerun.min_confidence)
+    res["rerun_gate"] = [policy_stats(items, decisions, default.rerun.min_confidence, s) for s in SAFE_GATES]
     real = [k for k, i in enumerate(items) if not i.invented]
     res["real_only"] = {
         "n": len(real),
@@ -187,6 +191,11 @@ def _pct(x: float) -> str:
     return "n/a" if isinstance(x, float) and math.isnan(x) else f"{100 * x:.1f}%"
 
 
+def _lat(r: dict[str, Any], key: str) -> str:
+    """Model latency comes from the recorded calls; the local regex rules take a few milliseconds, measured afresh each run."""
+    return "under 20 ms (local)" if r["model"] == "regex-rules" else f"{r[key]:.0f} ms"
+
+
 def _tables(b: dict[str, Any], h: str) -> list[str]:
     names = list(b)
     head = "| | " + " | ".join(BACKEND_TITLES.get(n, n) for n in names) + " |"
@@ -213,7 +222,7 @@ def _tables(b: dict[str, Any], h: str) -> list[str]:
         row("Decided automatically (confidence >= 0.6)", lambda r: _pct(r["policy_default"]["automated_share"])),
         row("Accuracy on the automatic share", lambda r: _pct(r["policy_default"]["automated_accuracy"])),
         row("Brier score, category (lower is better)", lambda r: f"{r['category_brier']:.3f}"),
-        row("Latency p50 / p95", lambda r: f"{r['latency_p50_ms']:.0f} / {r['latency_p95_ms']:.0f} ms"),
+        row("Latency p50 / p95", lambda r: _lat(r, "latency_p50_ms") + " / " + _lat(r, "latency_p95_ms")),
         row("Cost per 1,000 failures", lambda r: f"${r['cost_per_1000_usd']:.4f}"),
         "",
         f"{h} Automation at different confidence thresholds",
@@ -235,7 +244,21 @@ def _tables(b: dict[str, Any], h: str) -> list[str]:
                 f"{p['reruns']} | {p['wrong_reruns']} | {_pct(p['rerun_recall'])} |"
             )
         lines.append("")
-    lines += [f"{h} Per category (F1)", "", "| Category (gold count) | " + " | ".join(BACKEND_TITLES.get(n, n) for n in names) + " |", sep]
+    lines += [
+        f"{h} The re-run gate",
+        "",
+        "Same default policy, changing only the minimum P(safe to re-run). Lower gates re-run more of the flaky and infrastructure failures, "
+        "at the risk of re-running real ones.",
+        "",
+        "| Min P(safe to re-run) | " + " | ".join(f"{BACKEND_TITLES.get(n, n)}: re-runs / wrong / flaky-infra recall" for n in names) + " |",
+        "|---|" + "---|" * len(names),
+    ]
+    for k, gate in enumerate(SAFE_GATES):
+        gate_cells = [
+            f"{b[n]['rerun_gate'][k]['reruns']} / {b[n]['rerun_gate'][k]['wrong_reruns']} / {_pct(b[n]['rerun_gate'][k]['rerun_recall'])}" for n in names
+        ]
+        lines.append(f"| {gate:.1f}{' (default)' if gate == Config().rerun.min_safe_to_rerun else ''} | " + " | ".join(gate_cells) + " |")
+    lines += ["", f"{h} Per category (F1)", "", "| Category (gold count) | " + " | ".join(BACKEND_TITLES.get(n, n) for n in names) + " |", sep]
     for c in b[names[0]]["per_category"]:
         lines.append(
             f"| {c.replace('_', ' ')} ({b[names[0]]['per_category'][c]['n']}) | "
@@ -301,8 +324,8 @@ def _tables(b: dict[str, Any], h: str) -> list[str]:
         "",
         head,
         sep,
-        row("Latency p50", lambda r: f"{r['latency_p50_ms']:.0f} ms"),
-        row("Latency p95", lambda r: f"{r['latency_p95_ms']:.0f} ms"),
+        row("Latency p50", lambda r: _lat(r, "latency_p50_ms")),
+        row("Latency p95", lambda r: _lat(r, "latency_p95_ms")),
         row("Input tokens per failure (mean)", lambda r: f"{r['input_tokens_mean']:.0f}"),
         row("Output tokens per failure (mean)", lambda r: f"{r['output_tokens_mean']:.0f}"),
         row("Cost per 1,000 failures", lambda r: f"${r['cost_per_1000_usd']:.4f}"),
@@ -339,6 +362,9 @@ def render_markdown(res: dict[str, Any]) -> str:
             f"## All backends on the {sub['n']} failures every backend answered",
             "",
             f"{partial} (the free-tier request quota of its API), so this section compares every backend on the same {sub['n']} failures.",
+            "They are the first items of the data file, so they are not balanced: "
+            + ", ".join(f"{c.replace('_', ' ')} {v['n']}" for c, v in next(iter(sub["backends"].values()))["per_category"].items())
+            + ". Re-run numbers on this subset say little, because it holds almost no flaky or infrastructure failures.",
             "",
         ]
         lines += _tables(sub["backends"], "###")

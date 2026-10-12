@@ -57,6 +57,7 @@ def test_questions_have_criteria() -> None:
 
 def test_jev_parses_records_and_replays(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, failure: Failure) -> None:
     calls: list[dict[str, Any]] = []
+    monkeypatch.delenv("CI_TRIAGE_OFFLINE", raising=False)
 
     def fake_post(url: str, json: dict[str, Any], headers: dict[str, str], timeout: float) -> _Resp:
         calls.append(json)
@@ -87,6 +88,7 @@ def test_offline_cache_miss(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, fai
 
 def test_jev_retries_on_429(monkeypatch: pytest.MonkeyPatch, failure: Failure) -> None:
     replies = [_Resp(429, {}), _Resp(200, JEV_RESPONSE)]
+    monkeypatch.delenv("CI_TRIAGE_OFFLINE", raising=False)
     monkeypatch.setenv("TYPESAFE_API_KEY", "test-key-not-real")
     monkeypatch.setattr(httpx, "post", lambda *a, **k: replies.pop(0))
     monkeypatch.setattr("time.sleep", lambda s: None)
