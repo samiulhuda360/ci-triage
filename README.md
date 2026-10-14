@@ -19,14 +19,14 @@ keep failing for no good reason.
 
 ## A real-life example
 
-Priya runs the platform team at Tidewell, a 40-developer company that makes scheduling software for clinics. Their
+Sarah runs the platform team at Tidewell, a 40-developer company that makes scheduling software for clinics. Their
 main repository fails CI about 30 times a week. Before ci-triage, whoever was on build duty opened every red build:
 about 15 minutes each, close to a full day a week, and roughly a third turned out to be a download timeout or the
 same unreliable browser test, fixed by pressing "re-run".
 
 With ci-triage, runner and network failures are re-run by themselves and labelled `ci:auto-rerun`. A real failure
 gets one comment that names the failing test, quotes the five lines that matter and says what to do next, so the
-author fixes it without asking the build person. On Monday Priya gets a short table of the tests that failed most
+author fixes it without asking the build person. On Monday Sarah gets a short table of the tests that failed most
 often without a related change, and assigns two of them to be fixed. Build duty drops to about an hour a week, and
 nobody re-runs a genuinely broken build three times hoping it goes green.
 
